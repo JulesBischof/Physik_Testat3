@@ -7,13 +7,6 @@
 
   'n Gruss und tschau Kakao! - Julian
 
-
-
-
-
-
-
-
 #%% Aufgabe 1 Rüttler (MEP Aufgabe)
 import numpy as np
 
@@ -229,9 +222,6 @@ I2 = Pav / S2
 
 Ic = I1 - I2
 
-
-
-
 #%% Aufgabe 7 Gespanntes Seil
 import numpy as np
 
@@ -313,19 +303,173 @@ print("Position Wellenbauch: ", next_A, "m\n Position Wellenknoten: ", next_N, "
 import numpy as np
 
 #-----------------INPUT------------------
-
+t = 0
+s_ZA = 10#km
+c = 5#km/s
 #---------------------------------------
+
+# c = m/s -> Die Welle ist schon 7.5km weit gekommen
+# also ist die Zeit errechnebar durch... 
+
+s = 7.5#km abgelesen 
+
+t = s / c
+print("Aufgabe 9\n A) t = ", t, "s")
+
+#B) 
+
+#Amplituden verhalten sich antiproportional zu ihrem Abstand zum Epizentrum. Daraus folgt...
+
+#Abgelesen Werte:
+A1 = 5 #Amplitude bei x = 4km
+d1 = 4#km
+d2 = 10#km
+lambda_ = 2 #km
+
+A2 = ( d1 / d2 ) * A1
+T = lambda_ / c
+
+print("B) \n Ausschlag Ort A: ",A2, "\n Periode = ", T, "s")
+
+#C)
+
+# same wie eben, Intensität nimmt antiproportional zu r^2 zu -> konstante kürzt sich
+
+s_ZB = np.sqrt( s_ZA**2 + 15**2) # pythagoras
+Ia_Ib = ( s_ZA**2 / s_ZB**2 )
+print("C) Ib / Ib = ", Ia_Ib)
+
+#D)
+# beschleunigung -> Wellengleichung 2 mal nach t abgleiten. Trigofunktion kann man ignorieren,
+# soll ja um das maximum gehen ( cos = 1 )
+
+# noch ein Paar Einheiten umrechnen
+A2 = A2 * 1e-2 #in m
+c = c * 1e3 # in m
+lambda_ = lambda_ * 1e3 # ebenfalls in m
+
+k = ( 2 * np.pi ) / lambda_
+amax = A2 * k**2 * c**2
+print("D) a_max = ", amax, "m/s")
+
+#E) 
+# die Welle kehrt sich um - man muss also ermitteln, an welchem Wellenabschnitt sie auftrifft
+lambda_pos = 10e3 / lambda_
+# die welle schwingt volle 5 lambda bis sie an Oberfläche ankommt. 
+# ein lambda enthält eine volle Schwingung. der erste Knoten kommt also bei 1/4 lambda
+
+print("E) liegt 0.25 lambda unter A", 0.25 * lambda_ * 1e-3, "km")
 
 #%% Aufgabe 10 Grillieren mit Grillen
 import numpy as np
 
 #-----------------INPUT------------------
-
+L_amsel = 60#dB
+L_grille = 57#•dB
 #---------------------------------------
+I0 = 1e-12
+
+#A) wenn man in Intensitäten umrechnet und nachher wieder logarhytmiert kürzt sich recht viel weg 
+L_tot = L_amsel * L_grille * 1/10
+print("Aufgabe 10\n A) L = ", Ltot, "dB")
+
+#B) 
+#-----------------INPUT------------------
+L_konzert = 64#dB
+#---------------------------------------
+I_amsel = I0 * 10**(L_amsel / 10)
+I_grille = I0 * 10**(L_grille / 10)
+I_konzert = I0 * 10**(L_konzert / 10)
+
+n = (I_konzert - I_amsel) / I_grille
+
+print("B) n = ", n)
 
 #%% Aufgabe 11 Kinderparty mit lauter Musik
 import numpy as np
 
 #-----------------INPUT------------------
-
+Pa = 0.3#W
 #---------------------------------------
+c = 340#m/s - const
+
+
+#A) 
+
+#-----------------INPUT------------------
+da = 5.8#m
+db = 4#m
+#---------------------------------------
+
+# intensitäten sind gleich 
+S1 = 4 * np.pi * da**2
+S2 = 4 * np.pi * db**2
+
+Pb = Pa * (S2 / S1)
+print("Aufgabe 11\n A) Pb = ", Pb, " W")
+
+#B) 
+
+#-----------------INPUT------------------
+F = 250#Hz
+#---------------------------------------
+
+# gefragt ist hier die Frequenz, bei der es zu einer destruktiven Imterferenz kommt
+# da spassiert bei einer Schiebung von 0.5 lambda
+
+ds = da - db # Streckenunterschied zwischen den Lautsprechern
+lambda_ = ds / 0.5 # aus Streckenunterschied benötigtes Lambda rausfinden (diese muss 0.5 lambda entsprechen)
+f = c / lambda_
+print("B) f = ", f, "Hz")
+
+#C) 
+
+#-----------------INPUT------------------
+f = 189#Hz
+#---------------------------------------
+
+print("C) lambda: ", c / f) # Hier herrscht absolut konstruktive interferenz! (Lambda ist ganzes vielfaches von ds)
+# an Formel für Intensität kann man ablesen, dass Intensität dem Quadrat der Amplitude proportional ist
+# Daher is gesamtintensität Summe der Wurzeln der Intensität
+
+Ia = Pa / S1
+Ib = Pb / S2
+
+I_tot = Ia + Ib
+
+print(" I = ", I_tot, "W/m^2")
+ 
+
+
+
+
+#D) 
+
+#-----------------INPUT------------------
+#---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
